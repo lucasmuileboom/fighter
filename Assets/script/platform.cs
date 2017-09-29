@@ -17,7 +17,7 @@ public class platform : MonoBehaviour
 		{
 			GetComponent<BoxCollider2D> ().enabled = true;
 		}
-		else if(Player.transform.position.y < transform.position.y)
+		else if(Player.transform.position.y - 0.5f < transform.position.y + 0.25)
 		{
 			GetComponent<BoxCollider2D> ().enabled = false;
 		}

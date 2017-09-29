@@ -12,7 +12,14 @@ public class playerhealth : MonoBehaviour
 	{
 		HPText.text = "HP: " + playerhp;
 	}
-	public void takedamage(int damage)
+    private void Update()
+    {
+        if(playerhp <= 0)//gameover
+        {
+            print("gameover");            
+        }
+    }
+    public void takedamage(int damage)
 	{
 		playerhp -= damage;
 		HPText.text = "HP: " + playerhp;

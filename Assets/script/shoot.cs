@@ -27,7 +27,7 @@ public class shoot : MonoBehaviour
 		}
 		else if(!playermovement.flipped)
 		{
-			position = new Vector3 (transform.position.x + 1,transform.position.y,transform.position.z);
+			position = new Vector3 (transform.position.x + 1,transform.position.y + 0.5f, transform.position.z);
 		}
 		timeLeft -= Time.deltaTime;
 	}
@@ -35,14 +35,14 @@ public class shoot : MonoBehaviour
 	{
 		if (timeLeft < 0 && pickgun.holdinggun)
 		{
-			if (pickgun.Collision.gameObject.name == ("cannon") && ammo > 0)
+			if (pickgun.Collision.gameObject.name == ("cannon(Clone)") && ammo > 0)
 			{ 
                 ShootCannon();
                 ammo--;
                 ammoText.text = "ammo: " + ammo;
                 timeLeft = 2;
 			}
-			else if (pickgun.Collision.gameObject.name == ("pistol") && ammo > 0)
+			else if (pickgun.Collision.gameObject.name == ("pistol(Clone)") && ammo > 0)
 			{
 				Shootpistol();
                 ammo--;
@@ -53,12 +53,12 @@ public class shoot : MonoBehaviour
 	}
     public void newgun()
     {
-        if (pickgun.Collision.gameObject.name == ("cannon"))
+        if (pickgun.Collision.gameObject.name == ("cannon(Clone)"))
         {
             ammo = 2;
             ammoText.text = "ammo: " + ammo;
         }
-        else if (pickgun.Collision.gameObject.name == ("pistol"))
+        else if (pickgun.Collision.gameObject.name == ("pistol(Clone)"))
         {
             ammo = 5;
             ammoText.text = "ammo: " + ammo;
@@ -75,5 +75,6 @@ public class shoot : MonoBehaviour
     public void dropgun()
     {
         ammo = 0;
+        ammoText.text = "ammo: " + ammo;
     }
 }
