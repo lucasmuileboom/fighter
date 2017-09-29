@@ -14,31 +14,29 @@ public class bullet : MonoBehaviour
 	{
 		_rigidbody2D = GetComponent<Rigidbody2D> ();
 		player = GameObject.Find ("Player");
-		if (gameObject.name == "cannonbullet")
+		if (gameObject.name == "cannonbullet(Clone)")
+		{
+			bulletSpeed = 10;
+		}
+		else if (gameObject.name == "pistolbullet(Clone)")
 		{
 			bulletSpeed = 5;
 		}
-		else if (gameObject.name == "pistolbullet")
-		{
-			bulletSpeed = 2;
-		}
-
-
-		//doet raar
 		if(player.GetComponent<playermovement>().flipped)
 		{
-			print ("flipped");
 			move = new Vector2 (-1, 0) * bulletSpeed;
 		}
 		else if(!player.GetComponent<playermovement>().flipped)
 		{
-			print ("!flipped");
 			move = new Vector2 (1, 0) * bulletSpeed;
 		}
 	}
 	private void FixedUpdate()
 	{
 		_rigidbody2D.velocity = move * bulletSpeed;
-		print (_rigidbody2D.velocity);
+        if (transform.position.x < -11.5 || transform.position.x > 11.5)
+        {
+            Destroy(gameObject);
+        }
 	}
 }

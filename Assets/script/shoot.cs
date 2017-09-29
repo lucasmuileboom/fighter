@@ -1,26 +1,29 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class shoot : MonoBehaviour 
 {
 	[SerializeField] private GameObject cannonbullet;
 	[SerializeField] private GameObject pistolbullet;
-	public float timeLeft = 0;
+    [SerializeField] private Text ammoText;
+    public float timeLeft = 0;
 	private pickgun pickgun;
 	private playermovement playermovement;
 	private Vector3 position;
+    private int ammo = 0;
 
 	private void Start()
 	{
 		pickgun = GetComponent<pickgun> ();
 		playermovement = GetComponent<playermovement> ();
-	}
+        ammoText.text = "ammo: " + ammo;
+    }
 	private void Update ()
 	{
-		if(playermovement.flipped)
+		if(playermovement.flipped && pickgun.holdinggun)
 		{
-			position = new Vector3 (transform.position.x - 1,transform.position.y,transform.position.z);
+			position = new Vector3 (transform.position.x - 1,transform.position.y + 0.5f, transform.position.z);
 		}
 		else if(!playermovement.flipped)
 		{
@@ -32,19 +35,36 @@ public class shoot : MonoBehaviour
 	{
 		if (timeLeft < 0 && pickgun.holdinggun)
 		{
-			if (pickgun.Collision.gameObject.name == ("cannon"))
-			{
-				ShootCannon();
-				timeLeft = 2;
+			if (pickgun.Collision.gameObject.name == ("cannon") && ammo > 0)
+			{ 
+                ShootCannon();
+                ammo--;
+                ammoText.text = "ammo: " + ammo;
+                timeLeft = 2;
 			}
-			else if (pickgun.Collision.gameObject.name == ("pistol"))
+			else if (pickgun.Collision.gameObject.name == ("pistol") && ammo > 0)
 			{
 				Shootpistol();
-				timeLeft = 0.5f;
+                ammo--;
+                ammoText.text = "ammo: " + ammo;
+                timeLeft = 0.5f;
 			}
 		}
 	}
-	private void ShootCannon()
+    public void newgun()
+    {
+        if (pickgun.Collision.gameObject.name == ("cannon"))
+        {
+            ammo = 2;
+            ammoText.text = "ammo: " + ammo;
+        }
+        else if (pickgun.Collision.gameObject.name == ("pistol"))
+        {
+            ammo = 5;
+            ammoText.text = "ammo: " + ammo;
+        }
+    }
+    private void ShootCannon()
 	{ 
 		Instantiate(cannonbullet, position, pickgun.Collision.gameObject.transform.rotation);
 	}
@@ -52,4 +72,8 @@ public class shoot : MonoBehaviour
 	{
 		Instantiate(pistolbullet, position, pickgun.Collision.gameObject.transform.rotation);
 	}
+    public void dropgun()
+    {
+        ammo = 0;
+    }
 }

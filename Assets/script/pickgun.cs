@@ -37,7 +37,8 @@ public class pickgun : MonoBehaviour
 		}
 		else if (collisionBool && e && !holdinggun) 
 		{
-			holdinggun = true;
+            shoot.newgun();
+            holdinggun = true;
 		}
 	}
 	private void OnCollisionEnter2D(Collision2D coll)
@@ -61,5 +62,6 @@ public class pickgun : MonoBehaviour
 		//Collision.gameObject.GetComponent<BoxCollider2D> ().enabled = true;
 		holdinggun = false;
 		shoot.timeLeft = 0;
-	}
+        shoot.dropgun();
+    }
 }

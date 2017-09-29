@@ -20,11 +20,11 @@ public class playercollision : MonoBehaviour
 		}
 		else if(coll.gameObject.tag == "bullet")
 		{
-			if(coll.gameObject.name == "pistolbullet")
+			if(coll.gameObject.name == "pistolbullet(Clone)")
 			{
 				playerhealth.takedamage (10);
 			}
-			else if(coll.gameObject.name == "cannonball")
+			else if(coll.gameObject.name == "cannonball(Clone)")
 			{
 				playerhealth.takedamage (30);
 			}
